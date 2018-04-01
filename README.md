@@ -20,9 +20,11 @@ Máximo 3.
 
 Complete la tabla:
 
-| Integrante | github nick |
-|------------|-------------|
-|            |             |
+|       Integrante         | github nick                                              |
+|--------------------------|----------------------------------------------------------|
+| Diego Andrés Baquero     | [diegobaqt](https://github.com/diegobaqt)                |
+| Andrés Felipe López      | [andreslopzi](https://github.com/andreslopzi)            |
+
 
 ## Discusión
 
