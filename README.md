@@ -38,12 +38,6 @@ Inicialmente se hizo la correspondiente rasterización del triángulo.
 
 Adicionalmente, se realiza la implementación de la técnica de Shading a este triángulo, obteniendo el siguiente resultado:
 
-* Con pixeles definidos
-
-![Triángulo rasterizado con shading pixeles](3.png)
-
-* Ocultando los pixeles
-
 ![Triángulo rasterizado con shading](5.JPG)
 
 Posteriormente, se realiza la implementación del antialiasing:
