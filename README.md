@@ -32,7 +32,7 @@ Describa los resultados obtenidos. Qué técnicas de anti-aliasing y shading se 
 
 Los resultados obtenidos fueron los siguientes:
 
-Inicialmente se hizo la correspondiente rasterización del triángulo.
+Inicialmente se hizo la correspondiente rasterización del triángulo, haciendo uso de Coordenadas Baricéntricas con el fin de determinar si un pixel pertenece realmente al triángulo.
 
 ![Triángulo rasterizado](4.png)
 
