@@ -30,6 +30,46 @@ Complete la tabla:
 
 Describa los resultados obtenidos. Qué técnicas de anti-aliasing y shading se exploraron? Adjunte las referencias. Discuta las dificultades encontradas.
 
+Los resultados obtenidos fueron los siguientes:
+
+Inicialmente se hizo la correspondiente rasterización del triángulo.
+
+![Triángulo rasterizado](4.png)
+
+Adicionalmente, se realiza la implementación de la técnica de Shading a este triángulo, obteniendo el siguiente resultado:
+
+* Con pixeles definidos
+
+![Triángulo rasterizado con shading pixeles](3.png)
+
+* Ocultando los pixeles
+
+![Triángulo rasterizado con shading](5.JPG)
+
+Posteriormente, se realiza la implementación del antialiasing:
+
+![Triángulo antialiasing 1](1.png)
+
+![Triángulo antialiasing 1](2.png)
+
+
+Antialiasing: Es una técnica de suavizado de bordes o antiescalonamiento, donde se minimiza el aliasing cuando se desea representar una señal de alta resolución en un sustrato de más baja resolución.[3]
+
+Adicionalmente, se utilizó subsampling con el fin de subdividir cada uno de los pixeles, es una técnica de procesamiento de imagen para reducir la resolución del color sin afectar el brillo
+
+Finalmente, se hizo la implementación bajo coordenadas baricéntricas con el fin de definir la intensidad de cada uno de los colores para el shading.[4]
+
+
+## Referencias
+
+[1] http://www.sunshine2k.de/coding/java/TriangleRasterization/TriangleRasterization.html
+
+[2] https://fgiesen.wordpress.com/2013/02/06/the-barycentric-conspirac/
+
+[3] https://es.wikipedia.org/wiki/Antialiasing
+
+[4] https://elcodigografico.wordpress.com/2014/03/29/coordenadas-baricentricas-en-triangulos/
+
 ## Entrega
 
 * Modo de entrega: [Fork](https://help.github.com/articles/fork-a-repo/) la plantilla en las cuentas de los integrantes (de las que se tomará una al azar).
