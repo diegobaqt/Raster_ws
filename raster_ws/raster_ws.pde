@@ -22,7 +22,7 @@ String renderer = P3D;
 
 void setup() {
   //use 2^n to change the dimensions
-  size(1024, 1024, renderer);
+  size(512, 512, renderer);
   scene = new Scene(this);
   if (scene.is3D())
     scene.setType(Scene.Type.ORTHOGRAPHIC);
@@ -77,7 +77,57 @@ void triangleRaster() {
     pushStyle();
     stroke(255, 255, 0, 125);
     point(round(frame.coordinatesOf(v1).x()), round(frame.coordinatesOf(v1).y()));
-    popStyle();
+    point(round(frame.coordinatesOf(v2).x()), round(frame.coordinatesOf(v2).y()));
+    point(round(frame.coordinatesOf(v3).x()), round(frame.coordinatesOf(v3).y()));
+    popStyle();    
+  }
+  
+  int maxX = round(max(frame.coordinatesOf(v1).x(), frame.coordinatesOf(v2).x(), frame.coordinatesOf(v3).x()));
+  int maxY = round(max(frame.coordinatesOf(v1).y(), frame.coordinatesOf(v2).y(), frame.coordinatesOf(v3).y()));
+  int minX = round(min(frame.coordinatesOf(v1).x(), frame.coordinatesOf(v2).x(), frame.coordinatesOf(v3).x()));
+  int minY = round(min(frame.coordinatesOf(v1).y(), frame.coordinatesOf(v2).y(), frame.coordinatesOf(v3).y()));
+  
+  // F = (v0y  - v1y)Px + (v1x - v0x)Py + (v0x*v1y - v0y*v1x) 
+  // F = A01*Px + B01*Py + C01 
+  float A12 = frame.coordinatesOf(v1).y() - frame.coordinatesOf(v2).y();
+  float B12 = frame.coordinatesOf(v2).x() - frame.coordinatesOf(v1).x();
+  float C12 = frame.coordinatesOf(v1).x()*frame.coordinatesOf(v2).y() - frame.coordinatesOf(v1).y()*frame.coordinatesOf(v2).x() ;
+  
+  float A23 = frame.coordinatesOf(v2).y() - frame.coordinatesOf(v3).y();
+  float B23 = frame.coordinatesOf(v3).x() - frame.coordinatesOf(v2).x();
+  float C23 = frame.coordinatesOf(v2).x()*frame.coordinatesOf(v3).y() - frame.coordinatesOf(v2).y()*frame.coordinatesOf(v3).x() ;
+  
+  float A31 = frame.coordinatesOf(v3).y() - frame.coordinatesOf(v1).y();
+  float B31 = frame.coordinatesOf(v1).x() - frame.coordinatesOf(v3).x();
+  float C31 = frame.coordinatesOf(v3).x()*frame.coordinatesOf(v1).y() - frame.coordinatesOf(v3).y()*frame.coordinatesOf(v1).x() ;
+  
+  
+  boolean negative = false;
+  if ((A12*frame.coordinatesOf(v3).x()+B12*frame.coordinatesOf(v3).y()+C12)<0)
+    negative =true;
+  
+  strokeWeight(0);
+  int antialiasing = 16;
+  
+  for (int x = minX; x <= maxX; x++){
+    for (int y = minY; y <= maxY; y++){
+      Vector b = new Vector(x, y);
+      float RED = 0, GREEN = 0, BLUE = 0;
+      for (float i = 0; i<1; i+=(float)1/antialiasing)
+        for (float j = 0; j<1; j+=(float)1/antialiasing) {
+          Vector p = new Vector(x+i+1/antialiasing/2, y+i+1/antialiasing/2);
+          float w0 = A12*p.x()+B12*p.y()+C12;
+          float w1 = A23*p.x()+B23*p.y()+C23;
+          float w2 = A31*p.x()+B31*p.y()+C31;
+          if ((w0 < 0 && w1 < 0 && w2 < 0 && negative) || (w0 >= 0 && w1 >= 0 && w2 >= 0)) {
+            RED+=w0*255/(w0+w1+w2)/(antialiasing*antialiasing);
+            GREEN+=w1*255/(w0+w1+w2)/(antialiasing*antialiasing);
+            BLUE+=w2*255/(w0+w1+w2)/(antialiasing*antialiasing);
+          }
+      }
+      fill(color(round(RED), round(GREEN), round(BLUE)));
+      rect(b.x(), b.y(), 1, 1);
+    }
   }
 }
 
